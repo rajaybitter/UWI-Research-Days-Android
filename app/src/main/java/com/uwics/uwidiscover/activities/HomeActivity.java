@@ -16,21 +16,17 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.uwics.uwidiscover.R;
-import com.uwics.uwidiscover.activities.miscactivities.FSTSponsorFragment;
 import com.uwics.uwidiscover.activities.miscactivities.MyPreferencesActivity;
 import com.uwics.uwidiscover.activities.miscactivities.SearchableActivity;
-import com.uwics.uwidiscover.classes.models.Faculty;
 import com.uwics.uwidiscover.fragments.EventListFragment;
+import com.uwics.uwidiscover.activities.LiveStreamActivity;
 import com.uwics.uwidiscover.fragments.navdrawerfragments.ScheduleFragment;
-
-import java.util.List;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -214,10 +210,12 @@ public class HomeActivity extends AppCompatActivity
                 launchFragment(getString(R.string.faculty_medical_sciences), eventListFragment);
                 break;
             case R.id.nav_fac_scitech:
-                FSTSponsorFragment fstSponsorFragment = new FSTSponsorFragment();
-                launchFragment(getString(R.string.faculty_science_technology), fstSponsorFragment);
+                bundle = new Bundle();
+                bundle.putString("faculty", Tags.SCIENCE_TECHNOLOGY);
+                bundle.putString("wDay",getString(R.string.faculty_science_technology));
                 eventListFragment = new EventListFragment();
-                delay(eventListFragment);
+                eventListFragment.setArguments(bundle);
+                launchFragment(getString(R.string.faculty_science_technology), eventListFragment);
                 break;
             case R.id.nav_fac_sosci:
                 bundle = new Bundle();
@@ -276,7 +274,7 @@ public class HomeActivity extends AppCompatActivity
                 Toast.makeText(HomeActivity.this, "Coming Soon!", Toast.LENGTH_LONG).show();
                 break;
             case R.id.nav_live:
-                startActivity(new Intent(this, LiveActivity.class));
+                startActivity(new Intent(this, LiveStreamActivity.class));
                 break;
             case R.id.nav_settings:
                 startActivity(new Intent(this, MyPreferencesActivity.class));
